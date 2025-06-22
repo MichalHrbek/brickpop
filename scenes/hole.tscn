@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmjyskp12gyl5"]
+
+[ext_resource type="Texture2D" uid="uid://c8u7of0u073n2" path="res://assets/hole.svg" id="1_lerre"]
+
+[node name="Hole" type="Sprite2D"]
+z_index = -1
+texture = ExtResource("1_lerre")

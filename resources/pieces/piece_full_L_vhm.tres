@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PieceConfig" load_steps=2 format=3 uid="uid://cd6helnwmfb2b"]
+
+[ext_resource type="Script" uid="uid://cdihqr665bypb" path="res://resources/pieces/piece_config.gd" id="1_c2heb"]
+
+[resource]
+script = ExtResource("1_c2heb")
+shape = Array[Vector2i]([Vector2i(2, 0), Vector2i(2, 1), Vector2i(2, 2), Vector2i(1, 0), Vector2i(0, 0)])
+probability = 0.25
+metadata/_custom_type_script = "uid://cdihqr665bypb"

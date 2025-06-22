@@ -1,0 +1,75 @@
+[gd_scene load_steps=31 format=3 uid="uid://d17xo5t0ry2jb"]
+
+[ext_resource type="Script" uid="uid://bbutt1sd2sdt2" path="res://scripts/board.gd" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://boj7bmbvxc53b" path="res://scripts/piece_spawner.gd" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://cdihqr665bypb" path="res://resources/pieces/piece_config.gd" id="3_vxglm"]
+[ext_resource type="Resource" uid="uid://ds2q2thn4t41q" path="res://resources/pieces/piece_1x4.tres" id="4_2f3dj"]
+[ext_resource type="Resource" uid="uid://caneeh2efxxx7" path="res://resources/pieces/piece_1x5.tres" id="5_yq6so"]
+[ext_resource type="Resource" uid="uid://d03n1s7crx0ls" path="res://resources/pieces/piece_2x2.tres" id="6_fv21b"]
+[ext_resource type="Resource" uid="uid://dnlurw78asdje" path="res://resources/pieces/piece_2x3.tres" id="7_tel4y"]
+[ext_resource type="Resource" uid="uid://mmtjmcxolfiu" path="res://resources/pieces/piece_3x2.tres" id="8_qkpxi"]
+[ext_resource type="Resource" uid="uid://dd3esxox7gfd4" path="res://resources/pieces/piece_3x3.tres" id="9_5q0nq"]
+[ext_resource type="Resource" uid="uid://dp8rm6uvqsr0y" path="res://resources/pieces/piece_4x1.tres" id="10_dgi5k"]
+[ext_resource type="Resource" uid="uid://bngu1cctkgrg0" path="res://resources/pieces/piece_5x1.tres" id="11_j8jky"]
+[ext_resource type="Resource" uid="uid://brcdtog1nv21l" path="res://resources/pieces/piece_full_L.tres" id="12_kmb1v"]
+[ext_resource type="Resource" uid="uid://c5xuwijrbqcmo" path="res://resources/pieces/piece_full_L_hm.tres" id="13_fuf3a"]
+[ext_resource type="Resource" uid="uid://cd6helnwmfb2b" path="res://resources/pieces/piece_full_L_vhm.tres" id="14_pibwh"]
+[ext_resource type="Resource" uid="uid://dgkmum8gl2wt0" path="res://resources/pieces/piece_full_L_vm.tres" id="15_c6pm6"]
+[ext_resource type="Resource" uid="uid://cnlqyn46shm22" path="res://resources/pieces/piece_L.tres" id="16_5he1u"]
+[ext_resource type="Resource" uid="uid://cut0qampq25ab" path="res://resources/pieces/piece_L_hm.tres" id="17_5poiv"]
+[ext_resource type="Resource" uid="uid://nqtpevetjceq" path="res://resources/pieces/piece_L_vhm.tres" id="18_2cjbq"]
+[ext_resource type="Resource" uid="uid://va2l474a2ma" path="res://resources/pieces/piece_L_vm.tres" id="19_chjal"]
+[ext_resource type="Resource" uid="uid://bckfb3o0em8e" path="res://resources/pieces/piece_rL.tres" id="20_cjqg0"]
+[ext_resource type="Resource" uid="uid://c1esak7jpuayo" path="res://resources/pieces/piece_rL_hm.tres" id="21_vchkt"]
+[ext_resource type="Resource" uid="uid://behv6nruka0yb" path="res://resources/pieces/piece_rL_vhm.tres" id="22_txyw0"]
+[ext_resource type="Resource" uid="uid://ce72d1dog0n2n" path="res://resources/pieces/piece_rL_vm.tres" id="23_vc5cj"]
+[ext_resource type="Resource" uid="uid://w6mxnxabxnnb" path="res://resources/pieces/piece_wedge_down.tres" id="24_nvyfr"]
+[ext_resource type="Resource" uid="uid://bvwkmi5kv8nlb" path="res://resources/pieces/piece_wedge_left.tres" id="25_ty1g6"]
+[ext_resource type="Resource" uid="uid://ctrlsi51w5xeg" path="res://resources/pieces/piece_wedge_right.tres" id="26_j2jfr"]
+[ext_resource type="Resource" uid="uid://uhe8hgm1aa1u" path="res://resources/pieces/piece_wedge_up.tres" id="27_bjg73"]
+[ext_resource type="Script" uid="uid://cdko2fho1xhe8" path="res://scripts/score.gd" id="28_2f3dj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(800, 800)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2f3dj"]
+font_size = 32
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Board" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("1_0wfyh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Board"]
+unique_name_in_owner = true
+position = Vector2(400, 400)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="PieceSpawner" type="Node2D" parent="." node_paths=PackedStringArray("spawn_points", "board")]
+script = ExtResource("3_sugp2")
+spawn_points = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3"), NodePath("Marker2D4")]
+board = NodePath("../Board")
+shapes = Array[ExtResource("3_vxglm")]([ExtResource("4_2f3dj"), ExtResource("5_yq6so"), ExtResource("6_fv21b"), ExtResource("7_tel4y"), ExtResource("8_qkpxi"), ExtResource("9_5q0nq"), ExtResource("10_dgi5k"), ExtResource("11_j8jky"), ExtResource("12_kmb1v"), ExtResource("13_fuf3a"), ExtResource("14_pibwh"), ExtResource("15_c6pm6"), ExtResource("16_5he1u"), ExtResource("17_5poiv"), ExtResource("18_2cjbq"), ExtResource("19_chjal"), ExtResource("20_cjqg0"), ExtResource("21_vchkt"), ExtResource("22_txyw0"), ExtResource("23_vc5cj"), ExtResource("24_nvyfr"), ExtResource("25_ty1g6"), ExtResource("26_j2jfr"), ExtResource("27_bjg73")])
+
+[node name="Marker2D" type="Marker2D" parent="PieceSpawner"]
+position = Vector2(939, 64)
+
+[node name="Marker2D2" type="Marker2D" parent="PieceSpawner"]
+position = Vector2(1316, 71)
+
+[node name="Marker2D3" type="Marker2D" parent="PieceSpawner"]
+position = Vector2(943, 445)
+
+[node name="Marker2D4" type="Marker2D" parent="PieceSpawner"]
+position = Vector2(1324, 435)
+
+[node name="Score" type="Label" parent="."]
+offset_left = 891.0
+offset_top = 643.0
+offset_right = 931.0
+offset_bottom = 666.0
+label_settings = SubResource("LabelSettings_2f3dj")
+script = ExtResource("28_2f3dj")
+
+[connection signal="completed" from="Board" to="Score" method="_on_board_completed"]
