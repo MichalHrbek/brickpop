@@ -1,37 +1,37 @@
 class_name BoardUtils
 
-static func place(field: PackedByteArray, width: int, height: int, shape: Array[Vector2i], origin: Vector2i):# -> PackedByteArray | null
+static func place(field: PackedByteArray, shape: Array[Vector2i], origin: Vector2i):# -> PackedByteArray | null
 	var arr := PackedByteArray(field)
 	for i in shape:
 		var pos := origin + i
-		if pos.x < 0 or pos.x >= width: return null
-		if pos.y < 0 or pos.y >= height: return null
-		if arr[pos.x+pos.y*width]: return null
-		arr[pos.x+pos.y*width] = 1
+		if pos.x < 0 or pos.x >= 8: return null
+		if pos.y < 0 or pos.y >= 8: return null
+		if arr[pos.x+pos.y*8]: return null
+		arr[pos.x+pos.y*8] = 1
 	return arr
 
-static func check_completion(field: PackedByteArray, width: int, height: int) -> PackedByteArray:
+static func check_completion(field: PackedByteArray) -> PackedByteArray:
 	var to_destroy = PackedByteArray()
-	to_destroy.resize(width*height)
-	for i in height:
+	to_destroy.resize(64)
+	for y in 8:
 		var complete = true
-		for j in width:
-			if not field[i*width+j]:
+		for x in 8:
+			if not field[y*8+x]:
 				complete = false
 				break
 		if complete:
-			for j in width:
-				to_destroy[i*width+j] += 1
+			for x in 8:
+				to_destroy[y*8+x] += 1
 	
-	for j in width:
+	for x in 8:
 		var complete = true
-		for i in height:
-			if not field[i*width+j]:
+		for y in 8:
+			if not field[y*8+x]:
 				complete = false
 				break
 		if complete:
-			for i in height:
-				to_destroy[i*width+j] += 1
+			for y in 8:
+				to_destroy[y*8+x] += 1
 
 	return to_destroy
 
