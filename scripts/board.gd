@@ -10,7 +10,7 @@ const hole_scene = preload("res://scenes/hole.tscn")
 var holes: Array[Node2D] = []
 var bricks: Array[Node2D] = []
 
-signal completed(field: PackedInt32Array)
+signal completed(field: PackedByteArray)
 
 func _ready():
 	collision_shape.shape.size = Vector2(Constants.BRICK_SIZE*width,Constants.BRICK_SIZE*height)
@@ -59,35 +59,27 @@ func try_place(piece: Piece) -> bool:
 	check_completion()
 	return true
 
+func gen_bitmap() -> PackedByteArray:
+	var arr := PackedByteArray()
+	arr.resize(width*height)
+	for i in width*height:
+		if bricks[i]:
+			arr[i] = 1
+	return arr
+
 func check_completion():
-	var to_destroy = PackedInt32Array()
-	to_destroy.resize(width*height)
-	for i in height:
-		var complete = true
-		for j in width:
-			if not bricks[i*width+j]:
-				complete = false
-				break
-		if complete:
-			for j in width:
-				to_destroy[i*width+j] += 1
+	var to_destroy = BoardUtils.check_completion(gen_bitmap(), width, height)
 	
-	for j in width:
-		var complete = true
-		for i in height:
-			if not bricks[i*width+j]:
-				complete = false
-				break
-		if complete:
-			for i in height:
-				to_destroy[i*width+j] += 1
+	var complete := false
 	
 	for i in height*width:
 		if to_destroy[i]:
+			complete = true
 			bricks[i].queue_free()
 			bricks[i] = null
 	
-	completed.emit(to_destroy)
+	if complete:
+		completed.emit(to_destroy)
 
 func can_fit(shape: Array[Vector2i]) -> bool:
 	for i in width:

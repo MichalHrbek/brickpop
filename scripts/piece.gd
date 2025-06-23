@@ -32,11 +32,11 @@ func _ready():
 	for i in shape:
 		var brick = brick_scene.instantiate()
 		brick.position += Vector2(i*Constants.BRICK_SIZE)+Constants.BRICK_OFFSET
-		brick.input_event.connect(_handle_input_event)
+		brick.input_event.connect(_on_input_event)
 		add_child(brick)
 		bricks.append(brick)
 
-func _handle_input_event(viewport:Node, event:InputEvent, shape_idx:int):
+func _on_input_event(viewport:Node, event:InputEvent, shape_idx:int):
 	if dragging:
 		return
 	
