@@ -7,14 +7,14 @@ static func can_shift_shape(shape: int, pos: Vector2i) -> bool:
 	return true
 
 static func shift_shape(shape: int, pos: Vector2i) -> int:
-	return shape >> (pos.x+pos.y*8)
+	return shape << (pos.x+pos.y*8)
 
 static func is_oob(piece: int, pos: Vector2i) -> bool: # true -> is out of bounds
-	if pos.y*8+pos.x >= 64: return true
-	var mask_8b: int = 0b11111111 >> (8-pos.x)
+	if pos == Vector2i.ZERO: return false
+	var mask_8b: int = (0xFF << (8 - pos.x)) & 0xFF
 	var mask = mask_8b * 0x0101010101010101
-	#var mask: int = ~(mask_8b | (mask_8b << 8) | (mask_8b << 16) | (mask_8b << 24) | (mask_8b << 32) | (mask_8b << 40) | (mask_8b << 48) | (mask_8b << 56))
-	return (piece >> (64 - pos.y*8+pos.x)) or (mask & piece)
+	#var mask: int = mask_8b | (mask_8b << 8) | (mask_8b << 16) | (mask_8b << 24) | (mask_8b << 32) | (mask_8b << 40) | (mask_8b << 48) | (mask_8b << 56)
+	return (piece >> (64 - (pos.y*8+pos.x))) or (mask & piece)
 
 static func check_completion_points(bitfield: int) -> PackedByteArray:
 	var to_destroy = PackedByteArray()

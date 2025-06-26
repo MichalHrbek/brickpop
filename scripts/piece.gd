@@ -2,7 +2,7 @@ class_name Piece extends Node2D
 
 const brick_scene = preload("res://scenes/brick.tscn")
 
-@export var shape: Array[Vector2i] = []
+@export var shape: int
 @export var board: Board
 @export var start_scale: Vector2 = Vector2(0.5,0.5)
 @export var scale_up_time: float = 0.1
@@ -29,12 +29,14 @@ func go_back():
 
 func _ready():
 	scale = start_scale
-	for i in shape:
-		var brick = brick_scene.instantiate()
-		brick.position += Vector2(i*Constants.BRICK_SIZE)+Constants.BRICK_OFFSET
-		brick.input_event.connect(_on_input_event)
-		add_child(brick)
-		bricks.append(brick)
+	for x in 8:
+		for y in 8:
+			if shape & (1 << (y*8+x)):
+				var brick = brick_scene.instantiate()
+				brick.position += Vector2(x,y)*Constants.BRICK_SIZE+Constants.BRICK_OFFSET
+				brick.input_event.connect(_on_input_event)
+				add_child(brick)
+				bricks.append(brick)
 
 func _on_input_event(viewport:Node, event:InputEvent, shape_idx:int):
 	if dragging:

@@ -1,5 +1,4 @@
 class_name Board extends Area2D
-
 @onready var collision_shape = %CollisionShape2D
 
 const hole_scene = preload("res://scenes/hole.tscn")
@@ -43,14 +42,21 @@ func can_place(start_pos: Vector2i, shape: Array[Vector2i]) -> bool:
 func try_place(piece: Piece) -> bool:
 	var start_pos = Vector2i(round((piece.global_position-global_position)/Constants.BRICK_SIZE))
 	
-	if not can_place(start_pos, piece.shape):
+	if not BoardUtils.can_shift_shape(piece.shape, start_pos):
 		return false
 	
-	for i in len(piece.shape):
-		var pos = start_pos+piece.shape[i]
-		piece.bricks[i].reparent(self)
-		bricks[pos.y*8+pos.x] = piece.bricks[i]
-		piece.bricks[i].position = Constants.BRICK_OFFSET + pos*Constants.BRICK_SIZE
+	var shifted = BoardUtils.shift_shape(piece.shape, start_pos)
+	
+	if shifted & gen_bitfield():
+		return false
+	
+	for x in 8:
+		for y in 8:
+			if shifted & (1 << (y*8+x)):
+				var brick = piece.bricks.pop_front()
+				brick.reparent(self)
+				bricks[y*8+x] = brick
+				brick.position = Constants.BRICK_OFFSET + Vector2(x,y)*Constants.BRICK_SIZE
 	
 	piece.queue_free()
 	check_completion()

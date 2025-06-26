@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="PieceConfig" load_steps=2 format=3 uid="uid://w6mxnxabxnnb"]
+[gd_resource type="Resource" script_class="PieceConfig" load_steps=2 format=3 uid="uid://cfyps2vu6elwq"]
 
 [ext_resource type="Script" uid="uid://cdihqr665bypb" path="res://resources/pieces/piece_config.gd" id="1_jtj6o"]
 
 [resource]
 script = ExtResource("1_jtj6o")
 shape = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(1, 1)])
+bitfield = 519
 probability = 0.25
 metadata/_custom_type_script = "uid://cdihqr665bypb"

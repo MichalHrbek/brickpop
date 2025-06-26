@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 
 @export var spawn_points: Array[Marker2D] = []
@@ -8,8 +9,20 @@ const piece_scene = preload("res://scenes/piece.tscn")
 
 var pieces: Array[Piece] = []
 
+
 func _ready():
 	spawn_new()
+
+@export_tool_button("Bit") var action = bit
+func bit():
+	print(16<<63)
+	for i in shapes:
+		var bitfield = 0
+		for j in i.shape:
+			bitfield |= (1 << (j.x+j.y*8))
+		i.bitfield = bitfield
+		ResourceSaver.save(i,i.resource_path)
+
 
 func spawn_new():
 	for i in pieces:
@@ -19,7 +32,7 @@ func spawn_new():
 	
 	for i in spawn_points:
 		var piece: Piece = piece_scene.instantiate()
-		piece.shape = BoardUtils.random_shape(shapes).shape;
+		piece.shape = BoardUtils.random_shape(shapes).bitfield;
 		piece.modulate = Constants.BRICK_COLORS.pick_random()
 		piece.board = board
 		piece.global_position = i.global_position
