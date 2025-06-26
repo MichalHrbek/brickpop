@@ -56,16 +56,16 @@ func try_place(piece: Piece) -> bool:
 	check_completion()
 	return true
 
-func gen_bitmap() -> PackedByteArray:
-	var arr := PackedByteArray()
-	arr.resize(64)
+func gen_bitmap() -> int:
+	print(64>>16)
+	var bitmap := 0
 	for i in 64:
 		if bricks[i]:
-			arr[i] = 1
-	return arr
+			bitmap |= (1 << i)
+	return bitmap
 
 func check_completion():
-	var to_destroy = BoardUtils.check_completion(gen_bitmap())
+	var to_destroy = BoardUtils.check_completion_points(gen_bitmap())
 	
 	var complete := false
 	

@@ -1,22 +1,25 @@
 class_name BoardUtils
 
-static func place(field: PackedByteArray, shape: Array[Vector2i], origin: Vector2i):# -> PackedByteArray | null
-	var arr := PackedByteArray(field)
-	for i in shape:
-		var pos := origin + i
-		if pos.x < 0 or pos.x >= 8: return null
-		if pos.y < 0 or pos.y >= 8: return null
-		if arr[pos.x+pos.y*8]: return null
-		arr[pos.x+pos.y*8] = 1
-	return arr
+static func can_shift_shape(shape: int, pos: Vector2i) -> bool:
+	if pos.x < 0 or pos.x >= 8: return false
+	if pos.y < 0 or pos.y >= 8: return false
+	if is_oob(shape, pos.x+pos.y*8): return false
+	return true
 
-static func check_completion(field: PackedByteArray) -> PackedByteArray:
+static func shift_shape(shape: int, pos: Vector2i) -> int:
+	return shape >> (pos.x+pos.y*8)
+
+static func is_oob(piece: int, shift: int) -> bool: # true -> is out of bounds
+	if shift >= 64: return true
+	return (piece >> (64 - shift)) != 0
+
+static func check_completion_points(bitmap: int) -> PackedByteArray:
 	var to_destroy = PackedByteArray()
 	to_destroy.resize(64)
 	for y in 8:
 		var complete = true
 		for x in 8:
-			if not field[y*8+x]:
+			if not (bitmap & (1 << (y*8+x))):
 				complete = false
 				break
 		if complete:
@@ -26,7 +29,7 @@ static func check_completion(field: PackedByteArray) -> PackedByteArray:
 	for x in 8:
 		var complete = true
 		for y in 8:
-			if not field[y*8+x]:
+			if not (bitmap & (1 << (y*8+x))):
 				complete = false
 				break
 		if complete:
