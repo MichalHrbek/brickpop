@@ -63,10 +63,37 @@ static func random_sort(shapes_list: Array[PieceConfig]) -> Array[PieceConfig]:
 	
 	while len(shapes_list):
 		var p = randf_range(0,probability_sum)
-		for i in shapes_list: # TODO: binary search
-			p -= i.probability
+		for i in len(shapes_list): # TODO: binary search
+			p -= shapes_list[i].probability
 			if p <= 0:
-				arr.append(i)
+				arr.append(shapes_list[i])
+				shapes_list.remove_at(i)
 				break
-	
 	return arr
+
+static func popcount(x: int) -> int:
+	x = x - ((x >> 1) & 0x5555555555555555)
+	x = (x & 0x3333333333333333) + ((x >> 2) & 0x3333333333333333)
+	x = (x + (x >> 4)) & 0x0F0F0F0F0F0F0F0F
+	x = x + (x >> 8)
+	x = x + (x >> 16)
+	x = x + (x >> 32)
+	return int(x & 0x7F)
+
+static func find_usable_blocks(depth: int, current_depth: int, shapes: Array[int], n_shapes: int, bitfield: int) -> Array[int]:
+	var free = 64-popcount(bitfield)
+	for i in n_shapes:
+		var s = shapes[i+n_shapes*depth]
+		if popcount(s) > free:
+			continue
+		for x in 8:
+			for y in 8:
+				var ss = shift_shape(s, Vector2i(x,y))
+				if ss & bitfield: continue
+				if is_oob(s, Vector2i(x,y)): continue
+				if current_depth == depth-1:
+					return [s]
+				var usable = find_usable_blocks(depth, current_depth+1, shapes, n_shapes, ss & bitfield)
+				usable.append(s)
+				return usable
+	return []
