@@ -3,23 +3,26 @@ class_name BoardUtils
 static func can_shift_shape(shape: int, pos: Vector2i) -> bool:
 	if pos.x < 0 or pos.x >= 8: return false
 	if pos.y < 0 or pos.y >= 8: return false
-	if is_oob(shape, pos.x+pos.y*8): return false
+	if is_oob(shape, pos): return false
 	return true
 
 static func shift_shape(shape: int, pos: Vector2i) -> int:
 	return shape >> (pos.x+pos.y*8)
 
-static func is_oob(piece: int, shift: int) -> bool: # true -> is out of bounds
-	if shift >= 64: return true
-	return (piece >> (64 - shift)) != 0
+static func is_oob(piece: int, pos: Vector2i) -> bool: # true -> is out of bounds
+	if pos.y*8+pos.x >= 64: return true
+	var mask_8b: int = 0b11111111 >> (8-pos.x)
+	var mask = mask_8b * 0x0101010101010101
+	#var mask: int = ~(mask_8b | (mask_8b << 8) | (mask_8b << 16) | (mask_8b << 24) | (mask_8b << 32) | (mask_8b << 40) | (mask_8b << 48) | (mask_8b << 56))
+	return (piece >> (64 - pos.y*8+pos.x)) or (mask & piece)
 
-static func check_completion_points(bitmap: int) -> PackedByteArray:
+static func check_completion_points(bitfield: int) -> PackedByteArray:
 	var to_destroy = PackedByteArray()
 	to_destroy.resize(64)
 	for y in 8:
 		var complete = true
 		for x in 8:
-			if not (bitmap & (1 << (y*8+x))):
+			if not (bitfield & (1 << (y*8+x))):
 				complete = false
 				break
 		if complete:
@@ -29,7 +32,7 @@ static func check_completion_points(bitmap: int) -> PackedByteArray:
 	for x in 8:
 		var complete = true
 		for y in 8:
-			if not (bitmap & (1 << (y*8+x))):
+			if not (bitfield & (1 << (y*8+x))):
 				complete = false
 				break
 		if complete:

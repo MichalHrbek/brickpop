@@ -41,7 +41,7 @@ func can_place(start_pos: Vector2i, shape: Array[Vector2i]) -> bool:
 	return true
 
 func try_place(piece: Piece) -> bool:
-	var start_pos = Vector2i(round((piece.bricks[0].global_position-(global_position+Constants.BRICK_OFFSET))/Constants.BRICK_SIZE))-piece.shape[0]
+	var start_pos = Vector2i(round((piece.global_position-global_position)/Constants.BRICK_SIZE))
 	
 	if not can_place(start_pos, piece.shape):
 		return false
@@ -56,16 +56,15 @@ func try_place(piece: Piece) -> bool:
 	check_completion()
 	return true
 
-func gen_bitmap() -> int:
-	print(64>>16)
-	var bitmap := 0
+func gen_bitfield() -> int:
+	var bitfield := 0
 	for i in 64:
 		if bricks[i]:
-			bitmap |= (1 << i)
-	return bitmap
+			bitfield |= (1 << i)
+	return bitfield
 
 func check_completion():
-	var to_destroy = BoardUtils.check_completion_points(gen_bitmap())
+	var to_destroy = BoardUtils.check_completion_points(gen_bitfield())
 	
 	var complete := false
 	
