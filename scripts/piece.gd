@@ -7,8 +7,13 @@ const brick_scene = preload("res://scenes/brick.tscn")
 @export var start_scale: Vector2 = Vector2(0.5,0.5)
 @export var scale_up_time: float = 0.1
 @export var go_back_time: float = 0.05
-var bricks: Array[Node2D] = []
 
+var color: Color = Color.WHITE:
+	set(value):
+		color = value
+		for i in bricks:
+			i.modulate = color
+var bricks: Array[Node2D] = []
 var dragging = false
 var drag_start = Vector2()
 var tween_up: Tween
@@ -33,6 +38,7 @@ func _ready():
 		for y in 8:
 			if shape & (1 << (y*8+x)):
 				var brick = brick_scene.instantiate()
+				brick.modulate = color
 				brick.position += Vector2(x,y)*Constants.BRICK_SIZE+Constants.BRICK_OFFSET
 				brick.input_event.connect(_on_input_event)
 				add_child(brick)

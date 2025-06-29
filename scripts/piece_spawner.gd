@@ -28,8 +28,8 @@ func spawn_new():
 	var usable = BoardUtils.find_usable_blocks(len(spawn_points), 0, random_shapes, len(shapes), board.gen_bitfield())
 	for i in len(spawn_points):
 		var piece: Piece = piece_scene.instantiate()
-		piece.shape = usable[i];
-		piece.modulate = Constants.BRICK_COLORS.pick_random()
+		piece.shape = usable[i]
+		piece.color = Constants.BRICK_COLORS.pick_random()
 		piece.board = board
 		piece.global_position = spawn_points[i].global_position
 		piece.tree_exited.connect(_on_piece_placed.bind(piece))

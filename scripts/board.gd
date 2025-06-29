@@ -3,8 +3,7 @@ class_name Board extends Area2D
 
 const hole_scene = preload("res://scenes/hole.tscn")
 
-var holes: Array[Node2D] = []
-var bricks: Array[Node2D] = []
+var holes: Array[Hole] = []
 
 signal completed(field: PackedByteArray)
 
@@ -17,32 +16,29 @@ func _ready():
 			hole.position = Vector2(j*Constants.BRICK_SIZE,i*Constants.BRICK_SIZE)+Constants.BRICK_OFFSET
 			add_child(hole)
 			holes.append(hole)
-			bricks.append(null)
 
 func _process(delta):
-	var piece_bricks = get_overlapping_areas()
+	var pieces = get_tree().get_nodes_in_group("pieces")
 	
 	for i in holes:
+		i.hide_highlight()
 		i.modulate = Color.WHITE
 	
-	for i in bricks:
-		if is_instance_valid(i):
-			i.modulate = Color.WHITE
-	
-	var bitfield := gen_bitfield()
-	for i in piece_bricks:
-		var pos = round((i.global_position-(global_position+Constants.BRICK_OFFSET))/Constants.BRICK_SIZE)
-		if pos.x < 0 or pos.x >= 8: continue
-		if pos.y < 0 or pos.y >= 8: continue
-		holes[pos.y*8+pos.x].modulate = Color.WHITE*1.25
-		bitfield |= (1 << int(pos.y*8+pos.x))
-	
-	bitfield = BoardUtils.get_complete(bitfield)
-	for i in 64:
-		if bitfield & (1 << i):
-			if is_instance_valid(bricks[i]):
-				bricks[i].modulate = Color.GREEN
-			holes[i].modulate = Color.GREEN
+	for i in pieces:
+		var pos = round((i.global_position-(global_position))/Constants.BRICK_SIZE)
+		if not BoardUtils.can_shift_shape(i.shape, pos): continue
+		var bitfield := gen_bitfield()
+		var shape = BoardUtils.shift_shape(i.shape, pos)
+		if shape & gen_bitfield(): continue
+		for j in 64:
+			if shape & (1 << j):
+				holes[j].show_highlight(i.color)
+				bitfield |= (1 << j)
+		bitfield = BoardUtils.get_complete(bitfield)
+		for j in 64:
+			if bitfield & (1 << j):
+				holes[j].modulate = i.color
+				# TODO: Change brick color to i.color instead of modulate
 
 func try_place(piece: Piece) -> bool:
 	var start_pos = Vector2i(round((piece.global_position-global_position)/Constants.BRICK_SIZE))
@@ -59,9 +55,7 @@ func try_place(piece: Piece) -> bool:
 		for y in 8:
 			if shifted & (1 << (y*8+x)):
 				var brick = piece.bricks.pop_front()
-				brick.reparent(self)
-				bricks[y*8+x] = brick
-				brick.position = Constants.BRICK_OFFSET + Vector2(x,y)*Constants.BRICK_SIZE
+				holes[y*8+x].fill(brick)
 	
 	piece.queue_free()
 	check_completion()
@@ -70,7 +64,7 @@ func try_place(piece: Piece) -> bool:
 func gen_bitfield() -> int:
 	var bitfield := 0
 	for i in 64:
-		if bricks[i]:
+		if holes[i].brick:
 			bitfield |= (1 << i)
 	return bitfield
 
@@ -82,8 +76,7 @@ func check_completion():
 	for i in 64:
 		if to_destroy[i]:
 			complete = true
-			bricks[i].queue_free()
-			bricks[i] = null
+			holes[i].clear()
 	
 	if complete:
 		completed.emit(to_destroy)
