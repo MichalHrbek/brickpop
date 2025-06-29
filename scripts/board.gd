@@ -25,19 +25,24 @@ func _process(delta):
 	for i in holes:
 		i.modulate = Color.WHITE
 	
+	for i in bricks:
+		if is_instance_valid(i):
+			i.modulate = Color.WHITE
+	
+	var bitfield := gen_bitfield()
 	for i in piece_bricks:
 		var pos = round((i.global_position-(global_position+Constants.BRICK_OFFSET))/Constants.BRICK_SIZE)
 		if pos.x < 0 or pos.x >= 8: continue
 		if pos.y < 0 or pos.y >= 8: continue
 		holes[pos.y*8+pos.x].modulate = Color.WHITE*1.25
-
-func can_place(start_pos: Vector2i, shape: Array[Vector2i]) -> bool:
-	for i in len(shape):
-		var pos = start_pos+shape[i]
-		if pos.x < 0 or pos.x >= 8: return false
-		if pos.y < 0 or pos.y >= 8: return false
-		if bricks[pos.y*8+pos.x]: return false
-	return true
+		bitfield |= (1 << int(pos.y*8+pos.x))
+	
+	bitfield = BoardUtils.get_complete(bitfield)
+	for i in 64:
+		if bitfield & (1 << i):
+			if is_instance_valid(bricks[i]):
+				bricks[i].modulate = Color.GREEN
+			holes[i].modulate = Color.GREEN
 
 func try_place(piece: Piece) -> bool:
 	var start_pos = Vector2i(round((piece.global_position-global_position)/Constants.BRICK_SIZE))
@@ -82,10 +87,3 @@ func check_completion():
 	
 	if complete:
 		completed.emit(to_destroy)
-
-func can_fit(shape: Array[Vector2i]) -> bool:
-	for x in 8:
-		for y in 8:
-			if can_place(Vector2i(x,y), shape):
-				return true
-	return false

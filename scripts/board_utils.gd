@@ -41,6 +41,21 @@ static func check_completion_points(bitfield: int) -> PackedByteArray:
 
 	return to_destroy
 
+static func complete(bitfield: int) -> int:
+	return bitfield & (~get_complete(bitfield))
+
+static func get_complete(bitfield: int) -> int: # Returns just the complete rows and columns
+	var newfield: int = 0
+	for x in 8:
+		var mask = 0xFF << (x * 8);
+		if (bitfield & mask) == mask:
+			newfield |= mask
+	for y in 8:
+		var mask = 0x0101010101010101 << y;
+		if (bitfield & mask) == mask:
+			newfield |= mask
+	return newfield
+
 # Weighted random sampling
 static func random_shape(shapes_list: Array[PieceConfig]) -> PieceConfig:
 	var probability_sum := 0.0
@@ -93,7 +108,7 @@ static func find_usable_blocks(max_depth: int, current_depth: int, shapes: Array
 				var ss = shift_shape(s, Vector2i(x,y))
 				if ss & bitfield: continue
 				if is_oob(s, Vector2i(x,y)): continue
-				var usable = find_usable_blocks(max_depth, current_depth+1, shapes, n_shapes, ss | bitfield) # TODO: Do a completion check after OR
+				var usable = find_usable_blocks(max_depth, current_depth+1, shapes, n_shapes, complete(ss | bitfield))
 				if len(usable) != max_depth-current_depth-1: continue
 				usable.append(s)
 				return usable
