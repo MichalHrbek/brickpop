@@ -80,10 +80,12 @@ static func popcount(x: int) -> int:
 	x = x + (x >> 32)
 	return int(x & 0x7F)
 
-static func find_usable_blocks(depth: int, current_depth: int, shapes: Array[int], n_shapes: int, bitfield: int) -> Array[int]:
+static func find_usable_blocks(max_depth: int, current_depth: int, shapes: Array[int], n_shapes: int, bitfield: int) -> Array[int]:
+	if current_depth == max_depth:
+		return []
 	var free = 64-popcount(bitfield)
 	for i in n_shapes:
-		var s = shapes[i+n_shapes*depth]
+		var s = shapes[i+n_shapes*current_depth]
 		if popcount(s) > free:
 			continue
 		for x in 8:
@@ -91,9 +93,8 @@ static func find_usable_blocks(depth: int, current_depth: int, shapes: Array[int
 				var ss = shift_shape(s, Vector2i(x,y))
 				if ss & bitfield: continue
 				if is_oob(s, Vector2i(x,y)): continue
-				if current_depth == depth-1:
-					return [s]
-				var usable = find_usable_blocks(depth, current_depth+1, shapes, n_shapes, ss & bitfield)
+				var usable = find_usable_blocks(max_depth, current_depth+1, shapes, n_shapes, ss | bitfield) # TODO: Do a completion check after OR
+				if len(usable) != max_depth-current_depth-1: continue
 				usable.append(s)
 				return usable
 	return []

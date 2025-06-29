@@ -20,16 +20,15 @@ func spawn_new():
 	pieces = []
 	
 	var random_shapes: Array[int] = []
-	random_shapes.resize(len(shapes)*len(spawn_points))
 	
 	for i in len(spawn_points):
 		for j in BoardUtils.random_sort(shapes):
 			random_shapes.append(j.bitfield)
 	
-	var usable = BoardUtils.find_usable_blocks(len(spawn_points), 0, random_shapes, len(spawn_points), board.gen_bitfield())
+	var usable = BoardUtils.find_usable_blocks(len(spawn_points), 0, random_shapes, len(shapes), board.gen_bitfield())
 	for i in len(spawn_points):
 		var piece: Piece = piece_scene.instantiate()
-		piece.shape = BoardUtils.random_shape(shapes).bitfield;
+		piece.shape = usable[i];
 		piece.modulate = Constants.BRICK_COLORS.pick_random()
 		piece.board = board
 		piece.global_position = spawn_points[i].global_position
