@@ -113,3 +113,11 @@ static func find_usable_blocks(max_depth: int, current_depth: int, shapes: Array
 				usable.append(s)
 				return usable
 	return []
+
+static func can_fit_shape(shape: int, board: int) -> bool:
+	for x in 8:
+		for y in 8:
+			if can_shift_shape(shape, Vector2i(x,y)):
+				if not (shift_shape(shape, Vector2i(x,y)) & board):
+					return true
+	return false

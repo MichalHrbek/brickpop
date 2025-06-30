@@ -37,8 +37,19 @@ func spawn_new():
 		pieces.append(piece)
 
 func _on_piece_placed(piece: Piece):
+	var valid = false
+	var placable = false
+	
 	for i in pieces:
 		if is_instance_valid(i):
 			if piece != i:
-				return
-	spawn_new()
+				valid = true
+				if BoardUtils.can_fit_shape(i.shape, board.gen_bitfield()):
+					placable = true
+	
+	if not valid:
+		spawn_new()
+		return
+	
+	if not placable:
+		print("GG you lost!")
