@@ -29,44 +29,90 @@
 [ext_resource type="Resource" uid="uid://b3a8w4ypfojnt" path="res://resources/pieces/piece_wedge_up.tres" id="27_bjg73"]
 [ext_resource type="Script" uid="uid://cdko2fho1xhe8" path="res://scripts/score.gd" id="28_2f3dj"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_2f3dj"]
+font_size = 64
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(800, 800)
 
-[sub_resource type="LabelSettings" id="LabelSettings_2f3dj"]
-font_size = 32
+[node name="GameEndless" type="CanvasLayer"]
 
-[node name="Node2D" type="Node2D"]
+[node name="PieceSpawner" type="Node2D" parent="." node_paths=PackedStringArray("spawn_points", "board")]
+script = ExtResource("3_sugp2")
+spawn_points = [NodePath("../VBoxContainer/PiecesContainer/Control/Marker2D"), NodePath("../VBoxContainer/PiecesContainer/Control2/Marker2D"), NodePath("../VBoxContainer/PiecesContainer/Control3/Marker2D")]
+board = NodePath("../VBoxContainer/HBoxContainer/BoardContainer/Board")
+shapes = Array[ExtResource("3_vxglm")]([ExtResource("4_2f3dj"), ExtResource("5_yq6so"), ExtResource("6_fv21b"), ExtResource("7_tel4y"), ExtResource("8_qkpxi"), ExtResource("9_5q0nq"), ExtResource("10_dgi5k"), ExtResource("11_j8jky"), ExtResource("12_kmb1v"), ExtResource("13_fuf3a"), ExtResource("14_pibwh"), ExtResource("15_c6pm6"), ExtResource("16_5he1u"), ExtResource("17_5poiv"), ExtResource("18_2cjbq"), ExtResource("19_chjal"), ExtResource("20_cjqg0"), ExtResource("21_vchkt"), ExtResource("22_txyw0"), ExtResource("23_vc5cj"), ExtResource("24_nvyfr"), ExtResource("25_ty1g6"), ExtResource("26_j2jfr"), ExtResource("27_bjg73")])
 
-[node name="Board" type="Area2D" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_2f3dj")
+script = ExtResource("28_2f3dj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BoardContainer" type="Control" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 2
+
+[node name="Board" type="Area2D" parent="VBoxContainer/HBoxContainer/BoardContainer"]
 collision_mask = 2
 script = ExtResource("1_0wfyh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Board"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VBoxContainer/HBoxContainer/BoardContainer/Board"]
 unique_name_in_owner = true
 position = Vector2(400, 400)
 shape = SubResource("RectangleShape2D_0xm2m")
 
-[node name="PieceSpawner" type="Node2D" parent="." node_paths=PackedStringArray("spawn_points", "board")]
-script = ExtResource("3_sugp2")
-spawn_points = [NodePath("Marker2D"), NodePath("Marker2D2"), NodePath("Marker2D3")]
-board = NodePath("../Board")
-shapes = Array[ExtResource("3_vxglm")]([ExtResource("4_2f3dj"), ExtResource("5_yq6so"), ExtResource("6_fv21b"), ExtResource("7_tel4y"), ExtResource("8_qkpxi"), ExtResource("9_5q0nq"), ExtResource("10_dgi5k"), ExtResource("11_j8jky"), ExtResource("12_kmb1v"), ExtResource("13_fuf3a"), ExtResource("14_pibwh"), ExtResource("15_c6pm6"), ExtResource("16_5he1u"), ExtResource("17_5poiv"), ExtResource("18_2cjbq"), ExtResource("19_chjal"), ExtResource("20_cjqg0"), ExtResource("21_vchkt"), ExtResource("22_txyw0"), ExtResource("23_vc5cj"), ExtResource("24_nvyfr"), ExtResource("25_ty1g6"), ExtResource("26_j2jfr"), ExtResource("27_bjg73")])
+[node name="PiecesContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
 
-[node name="Marker2D" type="Marker2D" parent="PieceSpawner"]
-position = Vector2(939, 64)
+[node name="Spacer" type="Control" parent="VBoxContainer/PiecesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Marker2D2" type="Marker2D" parent="PieceSpawner"]
-position = Vector2(1316, 71)
+[node name="Control" type="Control" parent="VBoxContainer/PiecesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Marker2D3" type="Marker2D" parent="PieceSpawner"]
-position = Vector2(943, 445)
+[node name="Marker2D" type="Marker2D" parent="VBoxContainer/PiecesContainer/Control"]
 
-[node name="Score" type="Label" parent="."]
-offset_left = 891.0
-offset_top = 643.0
-offset_right = 931.0
-offset_bottom = 666.0
-label_settings = SubResource("LabelSettings_2f3dj")
-script = ExtResource("28_2f3dj")
+[node name="Spacer2" type="Control" parent="VBoxContainer/PiecesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
-[connection signal="completed" from="Board" to="Score" method="_on_board_completed"]
+[node name="Control2" type="Control" parent="VBoxContainer/PiecesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Marker2D" type="Marker2D" parent="VBoxContainer/PiecesContainer/Control2"]
+
+[node name="Spacer3" type="Control" parent="VBoxContainer/PiecesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control3" type="Control" parent="VBoxContainer/PiecesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Marker2D" type="Marker2D" parent="VBoxContainer/PiecesContainer/Control3"]
+
+[connection signal="completed" from="VBoxContainer/HBoxContainer/BoardContainer/Board" to="VBoxContainer/CenterContainer/Score" method="_on_board_completed"]

@@ -43,6 +43,8 @@ func _ready():
 				brick.input_event.connect(_on_input_event)
 				add_child(brick)
 				bricks.append(brick)
+	var rect := get_rect()
+	translate((Vector2(-rect.get_center().x, -rect.position.y)*Constants.BRICK_SIZE-Constants.BRICK_OFFSET)*scale)
 
 func _on_input_event(viewport:Node, event:InputEvent, shape_idx:int):
 	if dragging:
@@ -71,3 +73,17 @@ func _input(event):
 				scale = Vector2.ONE
 				if not board.try_place(self):
 					go_back()
+
+func get_rect() -> Rect2i:
+	var minx := 7
+	var miny := 7
+	var maxx := 0
+	var maxy := 0
+	for x in 8:
+		for y in 8:
+			if shape & (1 << (y*8+x)):
+				minx = min(minx, x)
+				miny = min(miny, y)
+				maxx = max(maxx, x)
+				maxy = max(maxy, y)
+	return Rect2i(minx, miny, maxx-minx+1, maxy-miny+1)

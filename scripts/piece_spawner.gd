@@ -11,7 +11,8 @@ var pieces: Array[Piece] = []
 func _ready():
 	for i in shapes:
 		assert(i.probability > 0)
-	spawn_new()
+	
+	spawn_new.call_deferred()
 
 func spawn_new():
 	for i in pieces:
@@ -31,9 +32,8 @@ func spawn_new():
 		piece.shape = usable[i]
 		piece.color = Constants.BRICK_COLORS.pick_random()
 		piece.board = board
-		piece.global_position = spawn_points[i].global_position
 		piece.tree_exited.connect(_on_piece_placed.bind(piece))
-		add_child(piece)
+		spawn_points[i].add_child(piece)
 		pieces.append(piece)
 
 func _on_piece_placed(piece: Piece):
