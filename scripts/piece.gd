@@ -44,7 +44,7 @@ func _ready():
 				add_child(brick)
 				bricks.append(brick)
 	var rect := get_rect()
-	translate((Vector2(-rect.get_center().x, -rect.position.y)*Constants.BRICK_SIZE-Constants.BRICK_OFFSET)*scale)
+	translate((-rect.get_center()*Constants.BRICK_SIZE-Constants.BRICK_OFFSET)*scale)
 
 func _on_input_event(viewport:Node, event:InputEvent, shape_idx:int):
 	if dragging:

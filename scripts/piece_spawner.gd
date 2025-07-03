@@ -7,6 +7,7 @@ extends Node2D
 const piece_scene = preload("res://scenes/piece.tscn")
 
 var pieces: Array[Piece] = []
+signal unplacable
 
 func _ready():
 	for i in shapes:
@@ -33,7 +34,7 @@ func spawn_new():
 		piece.color = Constants.BRICK_COLORS.pick_random()
 		piece.board = board
 		piece.tree_exited.connect(_on_piece_placed.bind(piece))
-		spawn_points[i].add_child(piece)
+		spawn_points[i].add_child.call_deferred(piece)
 		pieces.append(piece)
 
 func _on_piece_placed(piece: Piece):
@@ -52,4 +53,10 @@ func _on_piece_placed(piece: Piece):
 		return
 	
 	if not placable:
+		unplacable.emit()
 		print("GG you lost!")
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.keycode == 32:
+			unplacable.emit()

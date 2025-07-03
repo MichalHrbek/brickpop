@@ -1,5 +1,4 @@
-class_name Board extends Area2D
-@onready var collision_shape = %CollisionShape2D
+class_name Board extends Node2D
 
 const hole_scene = preload("res://scenes/hole.tscn")
 
@@ -8,8 +7,6 @@ var holes: Array[Hole] = []
 signal completed(field: PackedByteArray)
 
 func _ready():
-	collision_shape.shape.size = Vector2(Constants.BRICK_SIZE*8,Constants.BRICK_SIZE*8)
-	collision_shape.position = Vector2(Constants.BRICK_SIZE*8/2.0,Constants.BRICK_SIZE*8/2.0)
 	for i in 8:
 		for j in 8:
 			var hole = hole_scene.instantiate()
