@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d17xo5t0ry2jb"]
+[gd_scene load_steps=34 format=3 uid="uid://d17xo5t0ry2jb"]
 
 [ext_resource type="Script" uid="uid://bbutt1sd2sdt2" path="res://scripts/board.gd" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://boj7bmbvxc53b" path="res://scripts/piece_spawner.gd" id="3_sugp2"]
@@ -27,8 +27,13 @@
 [ext_resource type="Resource" uid="uid://cjbbl2q3534ex" path="res://resources/pieces/piece_wedge_left.tres" id="25_ty1g6"]
 [ext_resource type="Resource" uid="uid://b0tdv1emvd8bu" path="res://resources/pieces/piece_wedge_right.tres" id="26_j2jfr"]
 [ext_resource type="Resource" uid="uid://b3a8w4ypfojnt" path="res://resources/pieces/piece_wedge_up.tres" id="27_bjg73"]
+[ext_resource type="Script" uid="uid://dhdm8iw2geebc" path="res://scripts/highscore.gd" id="27_fv21b"]
 [ext_resource type="Script" uid="uid://cdko2fho1xhe8" path="res://scripts/score.gd" id="28_2f3dj"]
 [ext_resource type="Script" uid="uid://c8hc0qa6dqlue" path="res://scripts/scene_changer.gd" id="29_yq6so"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fv21b"]
+font_size = 48
+font_color = Color(0.804743, 0.804743, 0.804743, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2f3dj"]
 font_size = 64
@@ -53,18 +58,27 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+
+[node name="Highscore" type="Label" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_fv21b")
+script = ExtResource("27_fv21b")
+
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Score" type="Label" parent="VBoxContainer/MarginContainer/CenterContainer"]
+[node name="Score" type="Label" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_2f3dj")
+horizontal_alignment = 1
 script = ExtResource("28_2f3dj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -150,5 +164,6 @@ text = "Retry"
 script = ExtResource("29_yq6so")
 
 [connection signal="unplacable" from="PieceSpawner" to="Panel" method="show"]
-[connection signal="completed" from="VBoxContainer/HBoxContainer/BoardContainer/Board" to="VBoxContainer/MarginContainer/CenterContainer/Score" method="_on_board_completed"]
+[connection signal="score_achieved" from="VBoxContainer/MarginContainer/Score" to="VBoxContainer/MarginContainer2/Highscore" method="_on_score_score_achieved"]
+[connection signal="completed" from="VBoxContainer/HBoxContainer/BoardContainer/Board" to="VBoxContainer/MarginContainer/Score" method="_on_board_completed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RetryButton" to="Panel/VBoxContainer/RetryButton" method="_reload_current_scene"]

@@ -1,5 +1,7 @@
 extends Label
 
+signal score_achieved(score: int)
+
 var score := 0:
 	set(value):
 		score = value
@@ -11,6 +13,7 @@ func _on_board_completed(field_bytes: PackedByteArray):
 	for i in field:
 		sum += i**2
 	score += sum**2
+	score_achieved.emit(score)
 
 func _ready():
 	score = 0
