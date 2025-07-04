@@ -4,7 +4,7 @@ const hole_scene = preload("res://scenes/hole.tscn")
 
 var holes: Array[Hole] = []
 
-signal completed(field: PackedByteArray)
+signal completed(completions: PackedByteArray, board_after: int)
 
 func _ready():
 	for i in 8:
@@ -76,4 +76,4 @@ func check_completion():
 			holes[i].clear()
 	
 	if complete:
-		completed.emit(to_destroy)
+		completed.emit(to_destroy, gen_bitfield())

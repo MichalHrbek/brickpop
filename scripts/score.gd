@@ -7,12 +7,17 @@ var score := 0:
 		score = value
 		text = str(value)
 
-func _on_board_completed(field_bytes: PackedByteArray):
-	var field := PackedInt32Array(Array(field_bytes))
+func _on_board_completed(completions: PackedByteArray, board_after: int):
+	var field := PackedInt32Array(Array(completions))
 	var sum := 0
 	for i in field:
 		sum += i**2
-	score += sum**2
+	var gain = sum**2
+	
+	if board_after == 0: # Cleared whole board
+		gain *= 4
+	
+	score += gain	
 	score_achieved.emit(score)
 
 func _ready():

@@ -55,7 +55,6 @@ func _on_piece_placed(piece: Piece):
 	
 	if not placable:
 		unplacable.emit()
-		print("GG you lost!")
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:

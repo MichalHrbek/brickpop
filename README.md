@@ -1,6 +1,6 @@
 # Brick Pop!
 ## TODO
-- Give extra points for clearing the whole board
+- Figure out a reasonable scoring system
 - Improve brick artwork
 - Add missing shapes
 - Add 1x1 shape so there always is a usable block
