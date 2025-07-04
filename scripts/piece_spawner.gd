@@ -28,6 +28,7 @@ func spawn_new():
 			random_shapes.append(j.bitfield)
 	
 	var usable = BoardUtils.find_usable_blocks(len(spawn_points), 0, random_shapes, len(shapes), board.gen_bitfield())
+	usable.shuffle()
 	for i in len(spawn_points):
 		var piece: Piece = piece_scene.instantiate()
 		piece.shape = usable[i]

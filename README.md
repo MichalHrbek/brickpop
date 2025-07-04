@@ -1,6 +1,5 @@
 # Brick Pop!
 ## TODO
-- Randomize piece order to not give away the solution
 - Give extra points for clearing the whole board
 - Improve brick artwork
 - Add missing shapes
