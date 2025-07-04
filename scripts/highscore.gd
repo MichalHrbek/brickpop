@@ -5,7 +5,7 @@ var highscore: int = 0:
 		highscore = value
 		text = str(value)
 
-const FILENAME = "user://highscore.txt"
+const FILENAME = "user://highscore.bin"
 
 func _ready():
 	if not FileAccess.file_exists(FILENAME): return
