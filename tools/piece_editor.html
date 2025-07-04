@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<!-- This might not work if the bottom right brick is set since the 64th bit represents the sign in godot -->
+
+<style>
+	tr {
+		border: solid;
+	}
+
+	td {
+		border: solid;
+	}
+
+	td:has(input[type="checkbox"]:checked) {
+		background-color: grey;
+	}
+</style>
+
+<table id="board">
+	<tr>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+		<td><input type="checkbox" onchange="tableChanged()"></td>
+	</tr>
+
+</table>
+
+<br>
+
+<input type="text" id="int" onchange="intChanged()" value="0">
+
+<script>
+	function tableChanged() {
+		var shape = 0n;
+		for (let y = 0n; y < 8n; y++) {
+			const row = window.board.rows[y];
+			for (let x = 0n; x < 8n; x++) {
+				const checkbox = row.cells[x].firstElementChild;
+				if (checkbox.checked) {
+					shape |= (1n << (x+y*8n));
+				}
+			}
+			
+		}
+		window.int.value = shape.toString();
+	}
+
+	function intChanged() {
+		var shape = BigInt(window.int.value);
+		for (let y = 0n; y < 8n; y++) {
+			const row = window.board.rows[y];
+			for (let x = 0n; x < 8n; x++) {
+				const checkbox = row.cells[x].firstElementChild;
+				checkbox.checked = shape & (1n << (x+y*8n));
+			}
+			
+		}
+	}
+</script>

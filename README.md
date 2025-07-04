@@ -9,7 +9,6 @@
 - Release
 
 ## Potential features
-- Block editor
 - Levels
 - Animations
 - Game state persistence
