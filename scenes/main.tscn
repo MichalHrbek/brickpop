@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://d17xo5t0ry2jb"]
+[gd_scene load_steps=38 format=3 uid="uid://d17xo5t0ry2jb"]
 
 [ext_resource type="Script" uid="uid://bbutt1sd2sdt2" path="res://scripts/board.gd" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://boj7bmbvxc53b" path="res://scripts/piece_spawner.gd" id="3_sugp2"]
@@ -27,9 +27,13 @@
 [ext_resource type="Resource" uid="uid://cjbbl2q3534ex" path="res://resources/pieces/piece_wedge_left.tres" id="25_ty1g6"]
 [ext_resource type="Resource" uid="uid://b0tdv1emvd8bu" path="res://resources/pieces/piece_wedge_right.tres" id="26_j2jfr"]
 [ext_resource type="Resource" uid="uid://b3a8w4ypfojnt" path="res://resources/pieces/piece_wedge_up.tres" id="27_bjg73"]
+[ext_resource type="Resource" uid="uid://d1xfg4l7tpoi0" path="res://resources/pieces/piece_step_h_down.tres" id="27_dgi5k"]
 [ext_resource type="Script" uid="uid://dhdm8iw2geebc" path="res://scripts/highscore.gd" id="27_fv21b"]
 [ext_resource type="Script" uid="uid://cdko2fho1xhe8" path="res://scripts/score.gd" id="28_2f3dj"]
+[ext_resource type="Resource" uid="uid://cov5od4b1y8pg" path="res://resources/pieces/piece_step_h_up.tres" id="28_j8jky"]
+[ext_resource type="Resource" uid="uid://dy7d2t2owj1e0" path="res://resources/pieces/piece_step_v_down.tres" id="29_kmb1v"]
 [ext_resource type="Script" uid="uid://c8hc0qa6dqlue" path="res://scripts/scene_changer.gd" id="29_yq6so"]
+[ext_resource type="Resource" uid="uid://ogwq1rk2xsen" path="res://resources/pieces/piece_step_v_up.tres" id="30_fuf3a"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fv21b"]
 font_size = 48
@@ -47,7 +51,7 @@ font_size = 48
 script = ExtResource("3_sugp2")
 spawn_points = [NodePath("../VBoxContainer/VBoxContainer/PiecesContainer/Control/Marker2D"), NodePath("../VBoxContainer/VBoxContainer/PiecesContainer/Control2/Marker2D"), NodePath("../VBoxContainer/VBoxContainer/PiecesContainer/Control3/Marker2D")]
 board = NodePath("../VBoxContainer/HBoxContainer/BoardContainer/Board")
-shapes = Array[ExtResource("3_vxglm")]([ExtResource("4_2f3dj"), ExtResource("5_yq6so"), ExtResource("6_fv21b"), ExtResource("7_tel4y"), ExtResource("8_qkpxi"), ExtResource("9_5q0nq"), ExtResource("10_dgi5k"), ExtResource("11_j8jky"), ExtResource("12_kmb1v"), ExtResource("13_fuf3a"), ExtResource("14_pibwh"), ExtResource("15_c6pm6"), ExtResource("16_5he1u"), ExtResource("17_5poiv"), ExtResource("18_2cjbq"), ExtResource("19_chjal"), ExtResource("20_cjqg0"), ExtResource("21_vchkt"), ExtResource("22_txyw0"), ExtResource("23_vc5cj"), ExtResource("24_nvyfr"), ExtResource("25_ty1g6"), ExtResource("26_j2jfr"), ExtResource("27_bjg73")])
+shapes = Array[ExtResource("3_vxglm")]([ExtResource("4_2f3dj"), ExtResource("5_yq6so"), ExtResource("6_fv21b"), ExtResource("7_tel4y"), ExtResource("8_qkpxi"), ExtResource("9_5q0nq"), ExtResource("10_dgi5k"), ExtResource("11_j8jky"), ExtResource("12_kmb1v"), ExtResource("13_fuf3a"), ExtResource("14_pibwh"), ExtResource("15_c6pm6"), ExtResource("16_5he1u"), ExtResource("17_5poiv"), ExtResource("18_2cjbq"), ExtResource("19_chjal"), ExtResource("20_cjqg0"), ExtResource("21_vchkt"), ExtResource("22_txyw0"), ExtResource("23_vc5cj"), ExtResource("24_nvyfr"), ExtResource("25_ty1g6"), ExtResource("26_j2jfr"), ExtResource("27_bjg73"), ExtResource("27_dgi5k"), ExtResource("28_j8jky"), ExtResource("29_kmb1v"), ExtResource("30_fuf3a")])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15

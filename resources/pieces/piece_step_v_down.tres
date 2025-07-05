@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PieceConfig" load_steps=2 format=3 uid="uid://dy7d2t2owj1e0"]
+
+[ext_resource type="Script" uid="uid://cdihqr665bypb" path="res://resources/pieces/piece_config.gd" id="1_6r3x8"]
+
+[resource]
+script = ExtResource("1_6r3x8")
+bitfield = 774
+probability = 0.25
+metadata/_custom_type_script = "uid://cdihqr665bypb"
