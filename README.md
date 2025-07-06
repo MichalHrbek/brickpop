@@ -3,7 +3,6 @@
 - Figure out a reasonable scoring system
 - Improve brick artwork
 - Add missing shapes
-- Add icons for UI (highscore, retry)
 - Create icon
 - Release
 

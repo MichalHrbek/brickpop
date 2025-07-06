@@ -1,0 +1,1 @@
+The files in this folder whose names start with `material-symbols-light` are licensed under [Apache 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE)
