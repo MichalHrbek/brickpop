@@ -183,4 +183,5 @@ script = ExtResource("29_yq6so")
 [connection signal="unplacable" from="PieceSpawner" to="Panel" method="show"]
 [connection signal="score_achieved" from="VBoxContainer/MarginContainer/Score" to="VBoxContainer/MarginContainer2/HBoxContainer/Highscore" method="_on_score_score_achieved"]
 [connection signal="completed" from="VBoxContainer/HBoxContainer/BoardContainer/Board" to="VBoxContainer/MarginContainer/Score" method="_on_board_completed"]
+[connection signal="piece_placed" from="VBoxContainer/HBoxContainer/BoardContainer/Board" to="PieceSpawner" method="_on_piece_placed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RetryButton" to="Panel/VBoxContainer/RetryButton" method="_reload_current_scene"]

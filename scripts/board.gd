@@ -5,6 +5,7 @@ const hole_scene = preload("res://scenes/hole.tscn")
 var holes: Array[Hole] = []
 
 signal completed(completions: PackedByteArray, board_after: int)
+signal piece_placed(piece: Piece)
 
 func _ready():
 	for i in 8:
@@ -54,8 +55,9 @@ func try_place(piece: Piece) -> bool:
 				var brick = piece.bricks.pop_front()
 				holes[y*8+x].fill(brick)
 	
-	piece.queue_free()
 	check_completion()
+	piece.queue_free()
+	piece_placed.emit(piece)
 	return true
 
 func gen_bitfield() -> int:

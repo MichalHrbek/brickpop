@@ -34,7 +34,6 @@ func spawn_new():
 		piece.shape = usable[i]
 		piece.color = Constants.BRICK_COLORS.pick_random()
 		piece.board = board
-		piece.tree_exited.connect(_on_piece_placed.bind(piece))
 		spawn_points[i].add_child.call_deferred(piece)
 		pieces.append(piece)
 
