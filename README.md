@@ -1,7 +1,7 @@
 # Brick Pop!
 ## TODO
 - Figure out a reasonable scoring system
-- Improve brick artwork
+- Add source files for vector sprites
 - Add missing shapes
 - Create icon
 - Release
