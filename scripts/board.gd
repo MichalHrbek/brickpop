@@ -40,7 +40,10 @@ func _process(delta):
 
 func try_place(piece: Piece) -> bool:
 	var start_pos = Vector2i(round((piece.global_position-global_position)/Constants.BRICK_SIZE))
-	
+	return try_place_at(piece, start_pos)
+
+
+func try_place_at(piece: Piece, start_pos: Vector2) -> bool:
 	if not BoardUtils.can_shift_shape(piece.shape, start_pos):
 		return false
 	

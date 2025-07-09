@@ -55,7 +55,19 @@ func _on_piece_placed(piece: Piece):
 	if not placable:
 		unplacable.emit()
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.keycode == 32:
-			unplacable.emit()
+func _unhandled_input(event: InputEvent) -> void:
+	if OS.is_debug_build():
+		if event is InputEventKey:
+			if event.keycode == KEY_SPACE:
+				unplacable.emit()
+		elif event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_RIGHT and not event.pressed:
+				var pos = Vector2i(round((event.position-board.global_position-Constants.BRICK_OFFSET)/Constants.BRICK_SIZE))
+				var piece: Piece = piece_scene.instantiate()
+				piece.shape = 1
+				piece.board = board
+				piece.color = Constants.BRICK_COLORS.pick_random()
+				piece.ready.connect(func(): piece.scale = Vector2.ONE)
+				add_child(piece)
+				if not board.try_place_at(piece, pos):
+					piece.queue_free()

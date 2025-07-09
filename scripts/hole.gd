@@ -1,4 +1,4 @@
-class_name Hole extends Node
+class_name Hole extends Node2D
 
 var brick: Node2D = null
 @onready
