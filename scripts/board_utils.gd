@@ -86,23 +86,12 @@ static func random_sort(shapes_list: Array[PieceConfig]) -> Array[PieceConfig]:
 				break
 	return arr
 
-static func popcount(x: int) -> int:
-	x = x - ((x >> 1) & 0x5555555555555555)
-	x = (x & 0x3333333333333333) + ((x >> 2) & 0x3333333333333333)
-	x = (x + (x >> 4)) & 0x0F0F0F0F0F0F0F0F
-	x = x + (x >> 8)
-	x = x + (x >> 16)
-	x = x + (x >> 32)
-	return int(x & 0x7F)
-
 static func find_usable_blocks(max_depth: int, current_depth: int, shapes: Array[int], n_shapes: int, bitfield: int) -> Array[int]:
 	if current_depth == max_depth:
 		return []
-	var free = 64-popcount(bitfield)
 	for i in n_shapes:
 		var s = shapes[i+n_shapes*current_depth]
-		if popcount(s) > free:
-			continue
+		# TODO: Instead of going from the top left the order should be random for each depth like the shapes array
 		for x in 8:
 			for y in 8:
 				var ss = shift_shape(s, Vector2i(x,y))
