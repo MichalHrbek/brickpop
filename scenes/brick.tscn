@@ -1,16 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dt0g4funnybg4"]
+[gd_scene load_steps=2 format=3 uid="uid://dt0g4funnybg4"]
 
 [ext_resource type="Texture2D" uid="uid://c5rsii6ku1p1u" path="res://assets/brick.svg" id="1_5l4w1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu6xs"]
-size = Vector2(100, 100)
-
-[node name="Brick" type="Area2D"]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_uu6xs")
-
-[node name="Brick" type="Sprite2D" parent="."]
-texture_filter = 1
+[node name="Brick" type="Sprite2D"]
 texture = ExtResource("1_5l4w1")

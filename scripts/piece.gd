@@ -7,6 +7,7 @@ const brick_scene = preload("res://scenes/brick.tscn")
 @export var start_scale: Vector2 = Vector2(0.5,0.5)
 @export var scale_up_time: float = 0.1
 @export var go_back_time: float = 0.05
+@export var hitbox_padding: Vector2 = Vector2(100.0, 400.0)
 
 var color: Color = Color.WHITE:
 	set(value):
@@ -18,6 +19,8 @@ var dragging = false
 var drag_start = Vector2()
 var tween_up: Tween
 var tween_down: Tween
+
+@onready var hitbox: CollisionShape2D = %CollisionShape2D
 
 func scale_up():
 	if tween_up:
@@ -40,10 +43,12 @@ func _ready():
 				var brick = brick_scene.instantiate()
 				brick.modulate = color
 				brick.position += Vector2(x,y)*Constants.BRICK_SIZE+Constants.BRICK_OFFSET
-				brick.input_event.connect(_on_input_event)
 				add_child(brick)
 				bricks.append(brick)
 	var rect := get_rect()
+	hitbox.shape = RectangleShape2D.new()
+	hitbox.shape.size = rect.size*Constants.BRICK_SIZE+2*hitbox_padding
+	hitbox.position += rect.size*Constants.BRICK_SIZE/2
 	translate((-rect.get_center()*Constants.BRICK_SIZE-Constants.BRICK_OFFSET)*scale)
 
 func _on_input_event(viewport:Node, event:InputEvent, shape_idx:int):
@@ -51,6 +56,7 @@ func _on_input_event(viewport:Node, event:InputEvent, shape_idx:int):
 		return
 	
 	if event is InputEventMouseButton:
+		get_viewport().set_input_as_handled()
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				dragging = true

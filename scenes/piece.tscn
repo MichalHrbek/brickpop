@@ -4,3 +4,10 @@
 
 [node name="Piece" type="Node2D" groups=["pieces"]]
 script = ExtResource("1_gebih")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+unique_name_in_owner = true
+
+[connection signal="input_event" from="Area2D" to="." method="_on_input_event"]
