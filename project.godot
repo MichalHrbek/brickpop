@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="brickpop"
+config/name="Brick Pop!"
 run/main_scene="uid://d17xo5t0ry2jb"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
