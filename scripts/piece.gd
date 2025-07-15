@@ -8,7 +8,7 @@ const brick_scene = preload("res://scenes/brick.tscn")
 @export var scale_up_time: float = 0.1
 @export var go_back_time: float = 0.05
 @export var hitbox_padding: Vector2 = Vector2(100.0, 400.0)
-@export var drag_speed: Vector2 = Vector2(1.25, 1.25) # Only applies if a touchscreen is used
+@export var drag_speed: Vector2 = Vector2(1.5, 1.5) # Only applies if a touchscreen is used
 
 var color: Color = Color.WHITE:
 	set(value):
@@ -27,8 +27,9 @@ func scale_up():
 	if tween_up: tween_up.kill()
 	if tween_down: tween_down.kill()
 	tween_up = get_tree().create_tween().bind_node(self)
-	tween_up.tween_property(self,"global_position", Vector2(global_position.x, board.global_position.y+8*Constants.BRICK_SIZE), scale_up_time)
-	tween_up.parallel().tween_property(self,"scale", Vector2.ONE, scale_up_time)
+	tween_up.tween_property(self,"scale", Vector2.ONE, scale_up_time)
+	if DisplayServer.is_touchscreen_available():
+		tween_up.parallel().tween_property(self,"global_position", Vector2(global_position.x, board.global_position.y+(8-get_rect().get_center().y)*Constants.BRICK_SIZE), scale_up_time)
 
 func go_back():
 	if tween_up: tween_up.kill()
