@@ -8,6 +8,7 @@ const brick_scene = preload("res://scenes/brick.tscn")
 @export var scale_up_time: float = 0.1
 @export var go_back_time: float = 0.05
 @export var hitbox_padding: Vector2 = Vector2(100.0, 400.0)
+@export var drag_speed: Vector2 = Vector2(1.25, 1.25) # Only applies if a touchscreen is used
 
 var color: Color = Color.WHITE:
 	set(value):
@@ -23,14 +24,15 @@ var tween_down: Tween
 @onready var hitbox: CollisionShape2D = %CollisionShape2D
 
 func scale_up():
-	if tween_up:
-		tween_up.kill()
+	if tween_up: tween_up.kill()
+	if tween_down: tween_down.kill()
 	tween_up = get_tree().create_tween().bind_node(self)
-	tween_up.tween_property(self,"scale", Vector2.ONE, scale_up_time)
+	tween_up.tween_property(self,"global_position", Vector2(global_position.x, board.global_position.y+8*Constants.BRICK_SIZE), scale_up_time)
+	tween_up.parallel().tween_property(self,"scale", Vector2.ONE, scale_up_time)
 
 func go_back():
-	if tween_down:
-		tween_down.kill()
+	if tween_up: tween_up.kill()
+	if tween_down: tween_down.kill()
 	tween_down = get_tree().create_tween().bind_node(self)
 	tween_down.tween_property(self,"global_position", drag_start, go_back_time)
 	tween_down.parallel().tween_property(self,"scale", start_scale, go_back_time)
@@ -69,7 +71,10 @@ func _input(event):
 	
 	if event is InputEventMouseMotion:
 		if event.button_mask & MOUSE_BUTTON_MASK_LEFT:
-			global_position += event.relative
+			if DisplayServer.is_touchscreen_available():
+				global_position += event.relative * drag_speed
+			else:
+				global_position += event.relative
 	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
