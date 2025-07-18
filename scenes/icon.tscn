@@ -1,0 +1,291 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8q86lgnwkh6k"]
+
+[ext_resource type="Script" uid="uid://ifn4rgb8712q" path="res://scripts/control_screenshot.gd" id="1_3dybq"]
+[ext_resource type="PackedScene" uid="uid://bmjyskp12gyl5" path="res://scenes/hole.tscn" id="1_h6rt1"]
+[ext_resource type="PackedScene" uid="uid://dt0g4funnybg4" path="res://scenes/brick.tscn" id="2_ojcb0"]
+
+[node name="Icon" type="GridContainer"]
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 5
+script = ExtResource("1_3dybq")
+image_file_path = "\"res://assets/icon.png\""
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 1, 0, 1)
+position = Vector2(50, 50)
+
+[node name="Control2" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control2" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control2" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 1, 0, 1)
+position = Vector2(50, 50)
+
+[node name="Control3" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control3" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control3" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(50, 50)
+
+[node name="Control4" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control4" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control4" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(50, 50)
+
+[node name="Control5" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control5" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control5" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 1, 0.25098, 1)
+position = Vector2(50, 50)
+
+[node name="Control6" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control6" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control6" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 1, 0, 1)
+position = Vector2(50, 50)
+
+[node name="Control7" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control7" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control7" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(50, 50)
+
+[node name="Control8" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control8" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control8" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(50, 50)
+
+[node name="Control9" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control9" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control9" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 0.298039, 0.27451, 1)
+z_index = 1
+position = Vector2(20, 27)
+
+[node name="Control10" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control10" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control10" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 1, 0.25098, 1)
+position = Vector2(50, 50)
+
+[node name="Control11" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control11" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control11" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 0.372549, 0.964706, 1)
+position = Vector2(50, 50)
+
+[node name="Control12" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control12" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control12" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 0.372549, 0.964706, 1)
+position = Vector2(50, 50)
+
+[node name="Control13" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control13" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control13" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 0.298039, 0.27451, 1)
+z_index = 1
+position = Vector2(20, 27)
+
+[node name="Control14" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control14" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control14" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 0.298039, 0.27451, 1)
+z_index = 1
+position = Vector2(20, 27)
+
+[node name="Control15" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control15" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control15" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 1, 0.25098, 1)
+position = Vector2(50, 50)
+
+[node name="Control16" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control16" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control16" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 0.372549, 0.964706, 1)
+position = Vector2(50, 50)
+
+[node name="Control17" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control17" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control17" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 0.372549, 0.964706, 1)
+position = Vector2(50, 50)
+
+[node name="Control18" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control18" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control18" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 0.298039, 0.27451, 1)
+z_index = 1
+position = Vector2(20, 27)
+
+[node name="Control19" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control19" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control19" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 0.505882, 1, 1)
+position = Vector2(50, 50)
+
+[node name="Control20" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control20" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control20" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 1, 0.25098, 1)
+position = Vector2(50, 50)
+
+[node name="Control21" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control21" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control21" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 0.372549, 0.964706, 1)
+position = Vector2(50, 50)
+
+[node name="Control22" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control22" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control22" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(0.25098, 0.372549, 0.964706, 1)
+position = Vector2(50, 50)
+
+[node name="Control23" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control23" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control23" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 0.505882, 1, 1)
+position = Vector2(50, 50)
+
+[node name="Control24" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control24" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control24" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 0.505882, 1, 1)
+position = Vector2(50, 50)
+
+[node name="Control25" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Hole" parent="Control25" instance=ExtResource("1_h6rt1")]
+position = Vector2(50, 50)
+
+[node name="Brick" parent="Control25" instance=ExtResource("2_ojcb0")]
+self_modulate = Color(1, 0.505882, 1, 1)
+position = Vector2(50, 50)
