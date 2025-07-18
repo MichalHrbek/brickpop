@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bmjyskp12gyl5"]
 
-[ext_resource type="Texture2D" uid="uid://c8u7of0u073n2" path="res://assets/hole.svg" id="1_lerre"]
+[ext_resource type="Texture2D" uid="uid://c8u7of0u073n2" path="res://assets/game/hole.svg" id="1_lerre"]
 [ext_resource type="Script" uid="uid://jujqf2t33vlj" path="res://scripts/hole.gd" id="2_iyxdx"]
 [ext_resource type="PackedScene" uid="uid://dss0582x4tj3m" path="res://scenes/brick_highlight.tscn" id="3_a2ebe"]
 

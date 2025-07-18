@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8u7of0u073n2"
-path="res://.godot/imported/hole.svg-0ea8a7974667761b8dcd64067f413465.ctex"
+uid="uid://c5rsii6ku1p1u"
+path="res://.godot/imported/brick.svg-1b98694364d5b8e32034ad0cd84cce57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/hole.svg"
-dest_files=["res://.godot/imported/hole.svg-0ea8a7974667761b8dcd64067f413465.ctex"]
+source_file="res://assets/game/brick.svg"
+dest_files=["res://.godot/imported/brick.svg-1b98694364d5b8e32034ad0cd84cce57.ctex"]
 
 [params]
 
