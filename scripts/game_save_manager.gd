@@ -10,8 +10,8 @@ func _ready():
 	if FileAccess.file_exists(Constants.GAME_SAVE): game_save = load(Constants.GAME_SAVE)
 	if game_save:
 		# Loading board
-		for x in 8:
-			for y in 8:
+		for y in 8:
+			for x in 8:
 				if game_save.board_bitfield & (1 << (y*8+x)):
 					var brick: Node2D = Piece.brick_scene.instantiate()
 					brick.modulate = game_save.board_colors.pop_front()
@@ -42,7 +42,7 @@ func save_game():
 		print("An error happened while saving game: ", error)
 
 func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
 		save_game()
 
 func delete_save():
