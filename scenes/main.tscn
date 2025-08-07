@@ -245,6 +245,7 @@ score = NodePath("../VBoxContainer/MarginContainer/Score")
 board = NodePath("../VBoxContainer/HBoxContainer/BoardContainer/Board")
 piece_spawner = NodePath("../PieceSpawner")
 
+[connection signal="piece_placed" from="PieceSpawner" to="GameSaveManager" method="save_game" flags=3 unbinds=1]
 [connection signal="unplacable" from="PieceSpawner" to="GameOverPanel" method="show"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/TextureButton" to="PausePanel" method="show"]
 [connection signal="score_achieved" from="VBoxContainer/MarginContainer/Score" to="VBoxContainer/MarginContainer2/HBoxContainer/Highscore" method="_on_score_score_achieved"]

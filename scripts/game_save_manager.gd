@@ -1,6 +1,5 @@
 extends Node
 
-
 @export var score: Score
 @export var board: Board
 @export var piece_spawner: PieceSpawner
@@ -33,17 +32,12 @@ func save_game():
 			data.board_colors.append(i.brick.modulate)
 	
 	for i in piece_spawner.pieces:
-		if is_instance_valid(i):
-			data.piece_colors.append(i.color)
-			data.piece_shapes.append(i.shape)
+		data.piece_colors.append(i.color)
+		data.piece_shapes.append(i.shape)
 
 	var error := ResourceSaver.save(data, Constants.GAME_SAVE)
 	if error:
 		print("An error happened while saving game: ", error)
-
-func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_PAUSED:
-		save_game()
 
 func delete_save():
 	DirAccess.remove_absolute(Constants.GAME_SAVE)

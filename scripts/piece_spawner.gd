@@ -9,6 +9,7 @@ const piece_scene = preload("res://scenes/piece.tscn")
 
 var pieces: Array[Piece] = []
 signal unplacable
+signal piece_placed(piece: Piece)
 
 func _ready():
 	for i in shapes:
@@ -43,12 +44,15 @@ func _on_piece_placed(piece: Piece):
 	var valid = false
 	var placable = false
 	
+	pieces.remove_at(pieces.find(piece))
+	
 	for i in pieces:
-		if is_instance_valid(i):
-			if piece != i:
-				valid = true
-				if BoardUtils.can_fit_shape(i.shape, board.gen_bitfield()):
-					placable = true
+		if piece != i:
+			valid = true
+			if BoardUtils.can_fit_shape(i.shape, board.gen_bitfield()):
+				placable = true
+	
+	piece_placed.emit(piece)
 	
 	if not valid:
 		spawn_new_round()
