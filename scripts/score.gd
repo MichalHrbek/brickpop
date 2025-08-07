@@ -1,3 +1,4 @@
+class_name Score
 extends Label
 
 signal score_achieved(score: int)
@@ -5,7 +6,7 @@ signal score_achieved(score: int)
 var score := 0:
 	set(value):
 		score = value
-		text = str(value)
+		_update_text(value)
 
 func _on_board_completed(completions: PackedByteArray, board_after: int):
 	var field := PackedInt32Array(Array(completions))
@@ -20,5 +21,8 @@ func _on_board_completed(completions: PackedByteArray, board_after: int):
 	score += gain	
 	score_achieved.emit(score)
 
+func _update_text(value):
+	text = str(value)
+
 func _ready():
-	score = 0
+	_update_text(score)

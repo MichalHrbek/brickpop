@@ -6,7 +6,10 @@ var highlight: Node2D = %BrickHighlight
 
 func fill(_brick: Node2D):
 	brick = _brick
-	brick.reparent(self)
+	if brick.is_inside_tree():
+		brick.reparent(self)
+	else:
+		add_child(brick)
 	brick.position = Vector2.ZERO
 
 func clear():

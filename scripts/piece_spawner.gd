@@ -1,3 +1,4 @@
+class_name PieceSpawner
 extends Node2D
 
 @export var spawn_points: Array[Marker2D] = []
@@ -12,10 +13,16 @@ signal unplacable
 func _ready():
 	for i in shapes:
 		assert(i.probability > 0)
-	
-	spawn_new.call_deferred()
 
-func spawn_new():
+func spawn_piece(index: int, shape: int, color: Color):
+	var piece: Piece = piece_scene.instantiate()
+	piece.shape = shape
+	piece.color = color
+	piece.board = board
+	spawn_points[index].add_child.call_deferred(piece)
+	pieces.append(piece)
+
+func spawn_new_round():
 	for i in pieces:
 		if is_instance_valid(i):
 			i.queue_free()
@@ -30,12 +37,7 @@ func spawn_new():
 	var usable = BoardUtils.find_usable_blocks(len(spawn_points), 0, random_shapes, len(shapes), board.gen_bitfield())
 	usable.shuffle()
 	for i in len(spawn_points):
-		var piece: Piece = piece_scene.instantiate()
-		piece.shape = usable[i]
-		piece.color = Constants.BRICK_COLORS.pick_random()
-		piece.board = board
-		spawn_points[i].add_child.call_deferred(piece)
-		pieces.append(piece)
+		spawn_piece(i, usable[i], Constants.BRICK_COLORS.pick_random())
 
 func _on_piece_placed(piece: Piece):
 	var valid = false
@@ -49,7 +51,7 @@ func _on_piece_placed(piece: Piece):
 					placable = true
 	
 	if not valid:
-		spawn_new()
+		spawn_new_round()
 		return
 	
 	if not placable:
@@ -63,11 +65,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_RIGHT and not event.pressed:
 				var pos = Vector2i(round((event.position-board.global_position-Constants.BRICK_OFFSET)/Constants.BRICK_SIZE))
-				var piece: Piece = piece_scene.instantiate()
-				piece.shape = 1
-				piece.board = board
-				piece.color = Constants.BRICK_COLORS.pick_random()
-				piece.ready.connect(func(): piece.scale = Vector2.ONE)
-				add_child(piece)
-				if not board.try_place_at(piece, pos):
-					piece.queue_free()
+				var brick: Node2D = Piece.brick_scene.instantiate()
+				brick.modulate = Constants.BRICK_COLORS.pick_random()
+				board.try_fill_at(pos,brick)

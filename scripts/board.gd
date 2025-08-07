@@ -63,6 +63,16 @@ func try_place_at(piece: Piece, start_pos: Vector2) -> bool:
 	piece_placed.emit(piece)
 	return true
 
+func try_fill_at(pos: Vector2i, brick: Node2D) -> bool:
+	var index = pos.y*8+pos.x
+	if index < 0 or index >= 64:
+		return false
+	if not holes[index].brick:
+		holes[index].fill(brick)
+		check_completion()
+		return true
+	return false
+
 func gen_bitfield() -> int:
 	var bitfield := 0
 	for i in 64:

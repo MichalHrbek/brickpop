@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://d17xo5t0ry2jb"]
+[gd_scene load_steps=44 format=3 uid="uid://d17xo5t0ry2jb"]
 
 [ext_resource type="Script" uid="uid://bbutt1sd2sdt2" path="res://scripts/board.gd" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://boj7bmbvxc53b" path="res://scripts/piece_spawner.gd" id="3_sugp2"]
@@ -39,6 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://dtmbemrroeuns" path="res://assets/icons/material-symbols-light--menu-rounded.svg" id="34_pibwh"]
 [ext_resource type="Texture2D" uid="uid://qowdsr6hgddj" path="res://assets/icons/material-symbols-light--refresh-rounded.svg" id="35_kmb1v"]
 [ext_resource type="Texture2D" uid="uid://bm0o0j85o8n5v" path="res://assets/icons/material-symbols-light--play-arrow-rounded.svg" id="39_c6pm6"]
+[ext_resource type="Script" uid="uid://cqoyyb1yn2o2o" path="res://scripts/game_save_manager.gd" id="40_5he1u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fv21b"]
 font_size = 48
@@ -238,11 +239,19 @@ text = "Give up"
 icon = ExtResource("35_kmb1v")
 script = ExtResource("29_yq6so")
 
+[node name="GameSaveManager" type="Node" parent="." node_paths=PackedStringArray("score", "board", "piece_spawner")]
+script = ExtResource("40_5he1u")
+score = NodePath("../VBoxContainer/MarginContainer/Score")
+board = NodePath("../VBoxContainer/HBoxContainer/BoardContainer/Board")
+piece_spawner = NodePath("../PieceSpawner")
+
 [connection signal="unplacable" from="PieceSpawner" to="GameOverPanel" method="show"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/TextureButton" to="PausePanel" method="show"]
 [connection signal="score_achieved" from="VBoxContainer/MarginContainer/Score" to="VBoxContainer/MarginContainer2/HBoxContainer/Highscore" method="_on_score_score_achieved"]
 [connection signal="completed" from="VBoxContainer/HBoxContainer/BoardContainer/Board" to="VBoxContainer/MarginContainer/Score" method="_on_board_completed"]
 [connection signal="piece_placed" from="VBoxContainer/HBoxContainer/BoardContainer/Board" to="PieceSpawner" method="_on_piece_placed"]
 [connection signal="pressed" from="GameOverPanel/VBoxContainer/RetryButton" to="GameOverPanel/VBoxContainer/RetryButton" method="_reload_current_scene"]
+[connection signal="pressed" from="GameOverPanel/VBoxContainer/RetryButton" to="GameSaveManager" method="delete_save"]
 [connection signal="pressed" from="PausePanel/VBoxContainer/ContinueButton" to="PausePanel" method="hide"]
 [connection signal="pressed" from="PausePanel/VBoxContainer/RetryButton" to="PausePanel/VBoxContainer/RetryButton" method="_reload_current_scene"]
+[connection signal="pressed" from="PausePanel/VBoxContainer/RetryButton" to="GameSaveManager" method="delete_save"]

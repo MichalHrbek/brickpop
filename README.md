@@ -12,4 +12,3 @@ A clone of Block Blast! made in Godot.
 ## Potential features
 - Levels
 - Animations
-- Game state persistence
